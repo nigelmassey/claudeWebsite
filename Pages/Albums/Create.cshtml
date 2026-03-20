@@ -4,21 +4,34 @@
     ViewData["Title"] = "New Album";
 }
 
+@section Scripts {
+<script type="module">
+    import '@@material/web/textfield/outlined-text-field.js';
+    import '@@material/web/button/filled-button.js';
+</script>
+}
+
 <h2 class="page-title">New Album</h2>
 
 <div class="upload-section">
     <form method="post">
         <div class="form-field">
-            <label class="form-label" for="Name">Album Name</label>
-            <input class="form-input" type="text" id="Name" name="Name" value="@Model.Name"
-                   placeholder="e.g. Summer 2026" autofocus required />
+            <md-outlined-text-field
+                label="Album Name"
+                name="Name"
+                value="@Model.Name"
+                placeholder="e.g. Summer 2026"
+                autofocus
+                required
+                style="width:100%">
+            </md-outlined-text-field>
             @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Name"]?.Errors.Any() == true)
             {
                 <span class="error">@ViewData.ModelState["Name"]!.Errors[0].ErrorMessage</span>
             }
         </div>
         <div class="form-actions">
-            <button class="btn-primary" type="submit">Create Album</button>
+            <md-filled-button type="submit">Create Album</md-filled-button>
             <a class="btn-ghost" asp-page="/Albums/Index">Cancel</a>
         </div>
     </form>

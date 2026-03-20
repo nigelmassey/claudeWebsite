@@ -4,24 +4,33 @@
     ViewData["Title"] = "Admin";
 }
 
-<h1>Admin Portal</h1>
+@section Scripts {
+<script type="module">
+    import '@@material/web/button/filled-button.js';
+    import '@@material/web/button/outlined-button.js';
+    import '@@material/web/button/text-button.js';
+</script>
+}
 
-<section>
+<h1 class="page-title">Admin Portal</h1>
+
+<div class="admin-section">
     <h2>Actions</h2>
-    <a asp-page="/Upload">Upload Photos</a>
-    &nbsp;|&nbsp;
-    <a asp-page="/Albums/Create">Create Album</a>
-</section>
+    <div class="admin-actions">
+        <md-filled-button onclick="location.href='@Url.Page("/Upload")'">Upload Photos</md-filled-button>
+        <md-outlined-button onclick="location.href='@Url.Page("/Albums/Create")'">Create Album</md-outlined-button>
+    </div>
+</div>
 
-<section>
+<div class="admin-section">
     <h2>Photos (@Model.Photos.Count)</h2>
     @if (!Model.Photos.Any())
     {
-        <p>No photos uploaded yet.</p>
+        <p class="gallery-empty" style="margin-top:1rem">No photos uploaded yet.</p>
     }
     else
     {
-        <table>
+        <table class="admin-table">
             <thead>
                 <tr>
                     <th>Thumbnail</th>
@@ -34,14 +43,14 @@
                 @foreach (var photo in Model.Photos)
                 {
                     <tr>
-                        <td><img src="/photos/thumb/@photo.Filename" style="width:60px;height:60px;object-fit:cover;" /></td>
+                        <td><img src="/photos/thumb/@photo.Filename" style="width:60px;height:60px;object-fit:cover;border-radius:4px;" /></td>
                         <td>@photo.Filename</td>
                         <td>@photo.UploadedAt.ToString("yyyy-MM-dd HH:mm")</td>
                         <td>
                             <form method="post">
                                 <input type="hidden" name="filename" value="@photo.Filename" />
-                                <button type="submit" asp-page-handler="DeletePhoto"
-                                        onclick="return confirm('Delete @photo.Filename?')">Delete</button>
+                                <md-text-button class="error-btn" type="submit" asp-page-handler="DeletePhoto"
+                                        onclick="return confirm('Delete @photo.Filename?')">Delete</md-text-button>
                             </form>
                         </td>
                     </tr>
@@ -49,17 +58,17 @@
             </tbody>
         </table>
     }
-</section>
+</div>
 
-<section>
+<div class="admin-section">
     <h2>Albums (@Model.Albums.Count)</h2>
     @if (!Model.Albums.Any())
     {
-        <p>No albums yet.</p>
+        <p class="gallery-empty" style="margin-top:1rem">No albums yet.</p>
     }
     else
     {
-        <table>
+        <table class="admin-table">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -75,13 +84,12 @@
                         <td>@album.Name</td>
                         <td>@album.PhotoFilenames.Count</td>
                         <td>@album.CreatedAt.ToString("yyyy-MM-dd")</td>
-                        <td>
-                            <a asp-page="/Albums/Edit" asp-route-id="@album.Id">Edit</a>
-                            &nbsp;
+                        <td style="display:flex;align-items:center;gap:0.25rem">
+                            <md-outlined-button onclick="location.href='@Url.Page("/Albums/Edit", new { id = album.Id })'">Edit</md-outlined-button>
                             <form method="post" style="display:inline">
                                 <input type="hidden" name="id" value="@album.Id" />
-                                <button type="submit" asp-page-handler="DeleteAlbum"
-                                        onclick="return confirm('Delete album @album.Name?')">Delete</button>
+                                <md-text-button class="error-btn" type="submit" asp-page-handler="DeleteAlbum"
+                                        onclick="return confirm('Delete album @album.Name?')">Delete</md-text-button>
                             </form>
                         </td>
                     </tr>
@@ -89,4 +97,4 @@
             </tbody>
         </table>
     }
-</section>
+</div>

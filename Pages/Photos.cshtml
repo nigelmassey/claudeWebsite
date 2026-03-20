@@ -30,38 +30,5 @@
 </div>
 
 @section Scripts {
-<script>
-(function () {
-    var lightbox = document.getElementById('lightbox');
-    var lbImg = document.getElementById('lb-img');
-    var lbClose = document.getElementById('lb-close');
-
-    document.querySelector('.gallery-grid').addEventListener('click', function (e) {
-        var wrap = e.target.closest('.thumb-wrap');
-        if (wrap) {
-            lbImg.src = wrap.dataset.fullsrc;
-            lightbox.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-    });
-
-    lbClose.addEventListener('click', closeLightbox);
-
-    lightbox.addEventListener('click', function (e) {
-        if (e.target === lightbox) {
-            closeLightbox();
-        }
-    });
-
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeLightbox();
-    });
-
-    function closeLightbox() {
-        lightbox.style.display = 'none';
-        lbImg.src = '';
-        document.body.style.overflow = '';
-    }
-})();
-</script>
+<script src="~/js/lightbox.js"></script>
 }

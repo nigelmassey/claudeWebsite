@@ -5,6 +5,21 @@
     var album = Model.Album!;
 }
 
+@section Scripts {
+<script type="module">
+    import '@@material/web/textfield/outlined-text-field.js';
+    import '@@material/web/button/filled-button.js';
+    import '@@material/web/checkbox/checkbox.js';
+</script>
+<script>
+document.querySelectorAll('.edit-photo-item md-checkbox').forEach(function(cb) {
+    cb.addEventListener('change', function() {
+        this.closest('.edit-photo-item').classList.toggle('checked', this.checked);
+    });
+});
+</script>
+}
+
 <div class="albums-header">
     <div class="albums-header-left">
         <a class="back-link" asp-page="/Albums/Detail" asp-route-id="@album.Id">&#x2190; @album.Name</a>
@@ -15,8 +30,13 @@
 <form method="post">
     <div class="edit-album-layout">
         <div class="form-field" style="max-width:480px; margin-bottom:2rem">
-            <label class="form-label" for="Name">Album Name</label>
-            <input class="form-input" type="text" id="Name" name="Name" value="@Model.Name" required />
+            <md-outlined-text-field
+                label="Album Name"
+                name="Name"
+                value="@Model.Name"
+                required
+                style="width:100%">
+            </md-outlined-text-field>
             @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Name"]?.Errors.Any() == true)
             {
                 <span class="error">@ViewData.ModelState["Name"]!.Errors[0].ErrorMessage</span>
@@ -36,8 +56,8 @@
             {
                 var isChecked = Model.SelectedFilenames.Contains(photo.Filename);
                 <label class="edit-photo-item @(isChecked ? "checked" : "")">
-                    <input type="checkbox" name="SelectedFilenames" value="@photo.Filename"
-                           @(isChecked ? "checked" : "") />
+                    <md-checkbox name="SelectedFilenames" value="@photo.Filename"
+                                 @(isChecked ? "checked" : "")></md-checkbox>
                     <img src="/photos/thumb/@photo.Filename" width="150" height="150" alt="" />
                     <div class="edit-photo-date">@photo.UploadedAt.ToString("yyyy-MM-dd")</div>
                 </label>
@@ -46,18 +66,8 @@
         }
 
         <div class="form-actions" style="margin-top:2rem">
-            <button class="btn-primary" type="submit">Save Changes</button>
+            <md-filled-button type="submit">Save Changes</md-filled-button>
             <a class="btn-ghost" asp-page="/Albums/Detail" asp-route-id="@album.Id">Cancel</a>
         </div>
     </div>
 </form>
-
-@section Scripts {
-<script>
-document.querySelectorAll('.edit-photo-item input[type=checkbox]').forEach(function(cb) {
-    cb.addEventListener('change', function() {
-        this.closest('.edit-photo-item').classList.toggle('checked', this.checked);
-    });
-});
-</script>
-}

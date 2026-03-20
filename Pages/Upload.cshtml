@@ -4,6 +4,12 @@
     ViewData["Title"] = "Upload";
 }
 
+@section Scripts {
+<script type="module">
+    import '@@material/web/button/filled-button.js';
+</script>
+}
+
 <h2 class="page-title">Upload Photo</h2>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
@@ -32,6 +38,6 @@
                 </select>
             </div>
         }
-        <button class="btn-primary" type="submit">Upload</button>
+        <md-filled-button type="submit">Upload</md-filled-button>
     </form>
 </div>
