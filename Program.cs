@@ -33,7 +33,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromDays(30);
     });
 
-builder.Services.AddSingleton<PhotoService>();
+builder.Services.AddTransient<ApiKeyHandler>();
+builder.Services.AddHttpClient<GalleryApiClient>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["Api:BaseUrl"]!);
+}).AddHttpMessageHandler<ApiKeyHandler>();
 
 var app = builder.Build();
 
@@ -50,15 +54,15 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-app.MapGet("/photos/original/{filename}", (string filename, PhotoService photos) =>
+app.MapGet("/photos/original/{filename}", (string filename, IConfiguration config, IWebHostEnvironment env) =>
 {
-    var path = photos.GetOriginalPath(filename);
+    var path = Path.Combine(env.ContentRootPath, config["Gallery:StoragePath"] ?? "PhotoStorage", "originals", filename);
     return File.Exists(path) ? Results.File(path, "image/png") : Results.NotFound();
 });
 
-app.MapGet("/photos/thumb/{filename}", (string filename, PhotoService photos) =>
+app.MapGet("/photos/thumb/{filename}", (string filename, IConfiguration config, IWebHostEnvironment env) =>
 {
-    var path = photos.GetThumbnailPath(filename);
+    var path = Path.Combine(env.ContentRootPath, config["Gallery:StoragePath"] ?? "PhotoStorage", "thumbnails", filename);
     return File.Exists(path) ? Results.File(path, "image/png") : Results.NotFound();
 });
 

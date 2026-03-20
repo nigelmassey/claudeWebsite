@@ -1,4 +1,4 @@
-using claudeWebsite.Models;
+using claudeWebsite.Shared.Models;
 using claudeWebsite.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,19 +9,19 @@ namespace claudeWebsite.Pages.Admin;
 [Authorize]
 public class IndexModel : PageModel
 {
-    private readonly PhotoService _photos;
+    private readonly GalleryApiClient _photos;
 
     public IReadOnlyList<PhotoEntry> Photos { get; private set; } = Array.Empty<PhotoEntry>();
     public List<Album> Albums { get; private set; } = new();
 
-    public IndexModel(PhotoService photos)
+    public IndexModel(GalleryApiClient photos)
     {
         _photos = photos;
     }
 
     public async Task OnGetAsync()
     {
-        Photos = _photos.GetAll();
+        Photos = await _photos.GetAllAsync();
         Albums = await _photos.GetAlbumsAsync();
     }
 

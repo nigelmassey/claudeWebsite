@@ -1,3 +1,4 @@
+using claudeWebsite.Shared.Models;
 using claudeWebsite.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,12 +9,12 @@ namespace claudeWebsite.Pages.Albums;
 [Authorize]
 public class CreateModel : PageModel
 {
-    private readonly PhotoService _photos;
+    private readonly GalleryApiClient _photos;
 
     [BindProperty]
     public string Name { get; set; } = "";
 
-    public CreateModel(PhotoService photos)
+    public CreateModel(GalleryApiClient photos)
     {
         _photos = photos;
     }

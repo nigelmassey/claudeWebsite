@@ -1,4 +1,4 @@
-using claudeWebsite.Models;
+using claudeWebsite.Shared.Models;
 using claudeWebsite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,12 +7,12 @@ namespace claudeWebsite.Pages.Albums;
 
 public class DetailModel : PageModel
 {
-    private readonly PhotoService _photos;
+    private readonly GalleryApiClient _photos;
 
     public Album? Album { get; private set; }
     public List<PhotoEntry> Photos { get; private set; } = new();
 
-    public DetailModel(PhotoService photos)
+    public DetailModel(GalleryApiClient photos)
     {
         _photos = photos;
     }
@@ -22,7 +22,7 @@ public class DetailModel : PageModel
         Album = await _photos.GetAlbumAsync(id);
         if (Album is null) return NotFound();
 
-        var allPhotos = _photos.GetAll();
+        var allPhotos = await _photos.GetAllAsync();
         Photos = allPhotos.Where(p => Album.PhotoFilenames.Contains(p.Filename)).ToList();
         return Page();
     }

@@ -1,16 +1,35 @@
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: unless-stopped
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - Gallery__Password=${GALLERY_PASSWORD}
       - Gallery__StoragePath=/app/PhotoStorage
+      - Api__BaseUrl=http://api:5010/
+      - Api__ApiKey=${API_KEY}
     volumes:
       - photo_storage:/app/PhotoStorage
     networks:
       - internal
-    # No 'ports:' mapping — app is not reachable from outside Docker
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: .
+      dockerfile: claudeWebsite.Api/Dockerfile
+    restart: unless-stopped
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - Gallery__StoragePath=/app/PhotoStorage
+      - ApiKey=${API_KEY}
+    volumes:
+      - photo_storage:/app/PhotoStorage
+    networks:
+      - internal
 
   nginx:
     image: nginx:alpine

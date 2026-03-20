@@ -1,10 +1,10 @@
 using System.Text.Json;
-using claudeWebsite.Models;
+using claudeWebsite.Shared.Models;
 using Microsoft.AspNetCore.Http;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 
-namespace claudeWebsite.Services;
+namespace claudeWebsite.Api.Services;
 
 public class PhotoService
 {

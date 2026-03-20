@@ -1,3 +1,3 @@
-namespace claudeWebsite.Models;
+namespace claudeWebsite.Shared.Models;
 
 public record Album(string Id, string Name, DateTime CreatedAt, List<string> PhotoFilenames);

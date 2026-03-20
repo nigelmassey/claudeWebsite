@@ -1,4 +1,4 @@
-using claudeWebsite.Models;
+using claudeWebsite.Shared.Models;
 using claudeWebsite.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -6,17 +6,17 @@ namespace claudeWebsite.Pages;
 
 public class PhotosModel : PageModel
 {
-    private readonly PhotoService _photos;
+    private readonly GalleryApiClient _photos;
 
     public IReadOnlyList<PhotoEntry> Photos { get; private set; } = Array.Empty<PhotoEntry>();
 
-    public PhotosModel(PhotoService photos)
+    public PhotosModel(GalleryApiClient photos)
     {
         _photos = photos;
     }
 
-    public void OnGet()
+    public async Task OnGetAsync()
     {
-        Photos = _photos.GetAll();
+        Photos = await _photos.GetAllAsync();
     }
 }

@@ -1,4 +1,4 @@
-using claudeWebsite.Models;
+using claudeWebsite.Shared.Models;
 using claudeWebsite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,12 +7,12 @@ namespace claudeWebsite.Pages;
 
 public class UploadModel : PageModel
 {
-    private readonly PhotoService _photos;
+    private readonly GalleryApiClient _photos;
 
     public string? ErrorMessage { get; private set; }
     public List<Album> Albums { get; private set; } = new();
 
-    public UploadModel(PhotoService photos)
+    public UploadModel(GalleryApiClient photos)
     {
         _photos = photos;
     }

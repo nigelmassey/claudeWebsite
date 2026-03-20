@@ -1,4 +1,4 @@
-using claudeWebsite.Models;
+using claudeWebsite.Shared.Models;
 using claudeWebsite.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +9,7 @@ namespace claudeWebsite.Pages.Albums;
 [Authorize]
 public class EditModel : PageModel
 {
-    private readonly PhotoService _photos;
+    private readonly GalleryApiClient _photos;
 
     public Album? Album { get; private set; }
     public IReadOnlyList<PhotoEntry> AllPhotos { get; private set; } = Array.Empty<PhotoEntry>();
@@ -20,7 +20,7 @@ public class EditModel : PageModel
     [BindProperty]
     public List<string> SelectedFilenames { get; set; } = new();
 
-    public EditModel(PhotoService photos)
+    public EditModel(GalleryApiClient photos)
     {
         _photos = photos;
     }
@@ -32,7 +32,7 @@ public class EditModel : PageModel
 
         Name = Album.Name;
         SelectedFilenames = Album.PhotoFilenames.ToList();
-        AllPhotos = _photos.GetAll();
+        AllPhotos = await _photos.GetAllAsync();
         return Page();
     }
 
@@ -44,7 +44,7 @@ public class EditModel : PageModel
         if (string.IsNullOrWhiteSpace(Name))
         {
             ModelState.AddModelError(nameof(Name), "Album name is required.");
-            AllPhotos = _photos.GetAll();
+            AllPhotos = await _photos.GetAllAsync();
             return Page();
         }
 
