@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - nigelmassey.org</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="~/css/gallery.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" asp-page="/Index">nigelmassey.org</a>
+        <nav>
+            <a asp-page="/Photos">Photos</a>
+            <a asp-page="/Albums/Index">Albums</a>
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a asp-page="/Admin/Index">Admin</a>
+                <form method="post" action="/logout" style="display:inline">
+                    <button type="submit">Logout</button>
+                </form>
+            }
+            else
+            {
+                <a asp-page="/Login">Admin Login</a>
+            }
+        </nav>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

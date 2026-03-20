@@ -1,0 +1,37 @@
+@page
+@model claudeWebsite.Pages.UploadModel
+@{
+    ViewData["Title"] = "Upload";
+}
+
+<h2 class="page-title">Upload Photo</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p class="error">@Model.ErrorMessage</p>
+}
+
+<div class="upload-section">
+    <form method="post" enctype="multipart/form-data">
+        <div class="upload-zone">
+            <span class="upload-icon">&#x2191;</span>
+            <span class="upload-zone-label">Choose a photo or drag it here</span>
+            <span class="upload-zone-hint">PNG files only</span>
+            <input type="file" name="Photo" accept="image/png" required />
+        </div>
+        @if (Model.Albums.Any())
+        {
+            <div class="form-field" style="margin-bottom:1.25rem">
+                <label class="form-label" for="AlbumId">Add to album</label>
+                <select class="form-select" id="AlbumId" name="AlbumId">
+                    <option value="">— No album —</option>
+                    @foreach (var album in Model.Albums)
+                    {
+                        <option value="@album.Id">@album.Name</option>
+                    }
+                </select>
+            </div>
+        }
+        <button class="btn-primary" type="submit">Upload</button>
+    </form>
+</div>

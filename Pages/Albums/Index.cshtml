@@ -1,0 +1,45 @@
+@page
+@model claudeWebsite.Pages.Albums.IndexModel
+@{
+    ViewData["Title"] = "Albums";
+}
+
+<div class="albums-header">
+    <h2 class="page-title">Albums</h2>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <a class="btn-primary" asp-page="/Albums/Create">+ New Album</a>
+    }
+</div>
+
+@if (!Model.Albums.Any())
+{
+    <p class="gallery-empty">No albums yet.</p>
+}
+else
+{
+    <div class="albums-grid">
+    @foreach (var album in Model.Albums)
+    {
+        <a class="album-card" asp-page="/Albums/Detail" asp-route-id="@album.Id">
+            <div class="album-thumb-wrap">
+                @if (album.PhotoFilenames.Any())
+                {
+                    <img class="album-thumb"
+                         src="/photos/thumb/@album.PhotoFilenames[0]"
+                         width="300" height="300"
+                         alt="@album.Name" />
+                }
+                else
+                {
+                    <div class="album-thumb-empty">&#x1F5BC;</div>
+                }
+            </div>
+            <div class="album-info">
+                <span class="album-name">@album.Name</span>
+                <span class="album-count">@album.PhotoFilenames.Count photo@(album.PhotoFilenames.Count == 1 ? "" : "s")</span>
+            </div>
+        </a>
+    }
+    </div>
+}

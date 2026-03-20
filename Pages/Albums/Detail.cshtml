@@ -1,0 +1,75 @@
+@page "{id}"
+@model claudeWebsite.Pages.Albums.DetailModel
+@{
+    ViewData["Title"] = Model.Album?.Name ?? "Album";
+}
+
+<div class="albums-header">
+    <div class="albums-header-left">
+        <a class="back-link" asp-page="/Albums/Index">&#x2190; Albums</a>
+        <h2 class="page-title" style="margin-bottom:0">@Model.Album!.Name</h2>
+    </div>
+    <a class="btn-ghost" asp-page="/Albums/Edit" asp-route-id="@Model.Album.Id">Edit</a>
+</div>
+
+@if (!Model.Photos.Any())
+{
+    <p class="gallery-empty">No photos in this album yet. <a asp-page="/Albums/Edit" asp-route-id="@Model.Album.Id">Add some!</a></p>
+}
+else
+{
+    <div class="gallery-grid">
+    @foreach (var photo in Model.Photos)
+    {
+        <div class="thumb-wrap" data-fullsrc="/photos/original/@photo.Filename">
+            <img class="thumb"
+                 src="/photos/thumb/@photo.Filename"
+                 width="300" height="300"
+                 alt="@photo.UploadedAt.ToString("yyyy-MM-dd HH:mm")" />
+            <div class="thumb-caption">
+                <span class="thumb-date">@photo.UploadedAt.ToString("yyyy-MM-dd")</span>
+            </div>
+        </div>
+    }
+    </div>
+}
+
+<div id="lightbox" style="display:none">
+    <button id="lb-close" aria-label="Close">&#x2715;</button>
+    <img id="lb-img" src="" alt="" />
+</div>
+
+@section Scripts {
+<script>
+(function () {
+    var lightbox = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lb-img');
+    var lbClose = document.getElementById('lb-close');
+    var grid = document.querySelector('.gallery-grid');
+    if (!grid) return;
+
+    grid.addEventListener('click', function (e) {
+        var wrap = e.target.closest('.thumb-wrap');
+        if (wrap) {
+            lbImg.src = wrap.dataset.fullsrc;
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeLightbox();
+    });
+
+    function closeLightbox() {
+        lightbox.style.display = 'none';
+        lbImg.src = '';
+        document.body.style.overflow = '';
+    }
+})();
+</script>
+}

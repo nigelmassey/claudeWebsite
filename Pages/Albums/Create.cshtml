@@ -1,0 +1,25 @@
+@page
+@model claudeWebsite.Pages.Albums.CreateModel
+@{
+    ViewData["Title"] = "New Album";
+}
+
+<h2 class="page-title">New Album</h2>
+
+<div class="upload-section">
+    <form method="post">
+        <div class="form-field">
+            <label class="form-label" for="Name">Album Name</label>
+            <input class="form-input" type="text" id="Name" name="Name" value="@Model.Name"
+                   placeholder="e.g. Summer 2026" autofocus required />
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Name"]?.Errors.Any() == true)
+            {
+                <span class="error">@ViewData.ModelState["Name"]!.Errors[0].ErrorMessage</span>
+            }
+        </div>
+        <div class="form-actions">
+            <button class="btn-primary" type="submit">Create Album</button>
+            <a class="btn-ghost" asp-page="/Albums/Index">Cancel</a>
+        </div>
+    </form>
+</div>

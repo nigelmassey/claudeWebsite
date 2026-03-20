@@ -1,0 +1,63 @@
+@page "{id}"
+@model claudeWebsite.Pages.Albums.EditModel
+@{
+    ViewData["Title"] = "Edit Album";
+    var album = Model.Album!;
+}
+
+<div class="albums-header">
+    <div class="albums-header-left">
+        <a class="back-link" asp-page="/Albums/Detail" asp-route-id="@album.Id">&#x2190; @album.Name</a>
+        <h2 class="page-title" style="margin-bottom:0">Edit Album</h2>
+    </div>
+</div>
+
+<form method="post">
+    <div class="edit-album-layout">
+        <div class="form-field" style="max-width:480px; margin-bottom:2rem">
+            <label class="form-label" for="Name">Album Name</label>
+            <input class="form-input" type="text" id="Name" name="Name" value="@Model.Name" required />
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Name"]?.Errors.Any() == true)
+            {
+                <span class="error">@ViewData.ModelState["Name"]!.Errors[0].ErrorMessage</span>
+            }
+        </div>
+
+        <p class="form-label" style="margin-bottom:1rem">Photos</p>
+
+        @if (!Model.AllPhotos.Any())
+        {
+            <p class="gallery-empty" style="margin-top:1rem">No photos uploaded yet. <a asp-page="/Upload">Upload one!</a></p>
+        }
+        else
+        {
+            <div class="edit-photo-grid">
+            @foreach (var photo in Model.AllPhotos)
+            {
+                var isChecked = Model.SelectedFilenames.Contains(photo.Filename);
+                <label class="edit-photo-item @(isChecked ? "checked" : "")">
+                    <input type="checkbox" name="SelectedFilenames" value="@photo.Filename"
+                           @(isChecked ? "checked" : "") />
+                    <img src="/photos/thumb/@photo.Filename" width="150" height="150" alt="" />
+                    <div class="edit-photo-date">@photo.UploadedAt.ToString("yyyy-MM-dd")</div>
+                </label>
+            }
+            </div>
+        }
+
+        <div class="form-actions" style="margin-top:2rem">
+            <button class="btn-primary" type="submit">Save Changes</button>
+            <a class="btn-ghost" asp-page="/Albums/Detail" asp-route-id="@album.Id">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+<script>
+document.querySelectorAll('.edit-photo-item input[type=checkbox]').forEach(function(cb) {
+    cb.addEventListener('change', function() {
+        this.closest('.edit-photo-item').classList.toggle('checked', this.checked);
+    });
+});
+</script>
+}
