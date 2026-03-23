@@ -7,12 +7,12 @@ namespace claudeWebsite.Web.Pages;
 
 public class UploadModel : PageModel
 {
-    private readonly GalleryApiClient _photos;
+    private readonly IGalleryApiClient _photos;
 
     public string? ErrorMessage { get; private set; }
     public List<Album> Albums { get; private set; } = new();
 
-    public UploadModel(GalleryApiClient photos)
+    public UploadModel(IGalleryApiClient photos)
     {
         _photos = photos;
     }

@@ -9,12 +9,12 @@ namespace claudeWebsite.Web.Pages.Admin;
 [Authorize]
 public class IndexModel : PageModel
 {
-    private readonly GalleryApiClient _photos;
+    private readonly IGalleryApiClient _photos;
 
     public IReadOnlyList<PhotoEntry> Photos { get; private set; } = Array.Empty<PhotoEntry>();
     public List<Album> Albums { get; private set; } = new();
 
-    public IndexModel(GalleryApiClient photos)
+    public IndexModel(IGalleryApiClient photos)
     {
         _photos = photos;
     }

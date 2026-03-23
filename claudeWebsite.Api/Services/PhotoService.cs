@@ -6,7 +6,7 @@ using SixLabors.ImageSharp.Processing;
 
 namespace claudeWebsite.Api.Services;
 
-public class PhotoService
+public class PhotoService : IPhotoService, IAlbumService
 {
     private readonly string _originalsPath;
     private readonly string _thumbnailsPath;

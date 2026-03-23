@@ -9,7 +9,7 @@ namespace claudeWebsite.Web.Pages.Albums;
 [Authorize]
 public class EditModel : PageModel
 {
-    private readonly GalleryApiClient _photos;
+    private readonly IGalleryApiClient _photos;
 
     public Album? Album { get; private set; }
     public IReadOnlyList<PhotoEntry> AllPhotos { get; private set; } = Array.Empty<PhotoEntry>();
@@ -20,7 +20,7 @@ public class EditModel : PageModel
     [BindProperty]
     public List<string> SelectedFilenames { get; set; } = new();
 
-    public EditModel(GalleryApiClient photos)
+    public EditModel(IGalleryApiClient photos)
     {
         _photos = photos;
     }

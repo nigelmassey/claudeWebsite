@@ -7,12 +7,12 @@ namespace claudeWebsite.Web.Pages.Albums;
 
 public class DetailModel : PageModel
 {
-    private readonly GalleryApiClient _photos;
+    private readonly IGalleryApiClient _photos;
 
     public Album? Album { get; private set; }
     public List<PhotoEntry> Photos { get; private set; } = new();
 
-    public DetailModel(GalleryApiClient photos)
+    public DetailModel(IGalleryApiClient photos)
     {
         _photos = photos;
     }

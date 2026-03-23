@@ -3,7 +3,7 @@ using claudeWebsite.Shared.Models;
 
 namespace claudeWebsite.Web.Services;
 
-public class GalleryApiClient
+public class GalleryApiClient : IGalleryApiClient
 {
     private readonly HttpClient _http;
 

@@ -9,12 +9,12 @@ namespace claudeWebsite.Web.Pages.Albums;
 [Authorize]
 public class CreateModel : PageModel
 {
-    private readonly GalleryApiClient _photos;
+    private readonly IGalleryApiClient _photos;
 
     [BindProperty]
     public string Name { get; set; } = "";
 
-    public CreateModel(GalleryApiClient photos)
+    public CreateModel(IGalleryApiClient photos)
     {
         _photos = photos;
     }

@@ -34,7 +34,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 builder.Services.AddTransient<ApiKeyHandler>();
-builder.Services.AddHttpClient<GalleryApiClient>(client =>
+builder.Services.AddHttpClient<IGalleryApiClient, GalleryApiClient>(client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["Api:BaseUrl"]!);
 }).AddHttpMessageHandler<ApiKeyHandler>();

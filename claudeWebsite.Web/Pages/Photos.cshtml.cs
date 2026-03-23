@@ -6,11 +6,11 @@ namespace claudeWebsite.Web.Pages;
 
 public class PhotosModel : PageModel
 {
-    private readonly GalleryApiClient _photos;
+    private readonly IGalleryApiClient _photos;
 
     public IReadOnlyList<PhotoEntry> Photos { get; private set; } = Array.Empty<PhotoEntry>();
 
-    public PhotosModel(GalleryApiClient photos)
+    public PhotosModel(IGalleryApiClient photos)
     {
         _photos = photos;
     }
