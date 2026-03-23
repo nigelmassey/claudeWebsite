@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace claudeWebsite.Pages;
+namespace claudeWebsite.Web.Pages;
 
 public class LoginModel : PageModel
 {

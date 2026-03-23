@@ -1,9 +1,9 @@
 using claudeWebsite.Shared.Models;
-using claudeWebsite.Services;
+using claudeWebsite.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace claudeWebsite.Pages;
+namespace claudeWebsite.Web.Pages;
 
 public class UploadModel : PageModel
 {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpOverrides;
-using claudeWebsite.Services;
+using claudeWebsite.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

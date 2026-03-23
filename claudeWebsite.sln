@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "claudeWebsite", "claudeWebsite.csproj", "{BC9E62B8-A7CB-14BD-DFCE-79B557220BB5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "claudeWebsite.Web", "claudeWebsite.Web\claudeWebsite.Web.csproj", "{BC9E62B8-A7CB-14BD-DFCE-79B557220BB5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "claudeWebsite.Shared", "claudeWebsite.Shared\claudeWebsite.Shared.csproj", "{1079DAF5-364B-4D38-B6D5-F8CD80E0BD3B}"
 EndProject

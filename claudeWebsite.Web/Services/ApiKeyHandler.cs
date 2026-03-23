@@ -1,4 +1,4 @@
-namespace claudeWebsite.Services;
+namespace claudeWebsite.Web.Services;
 
 public class ApiKeyHandler : DelegatingHandler
 {

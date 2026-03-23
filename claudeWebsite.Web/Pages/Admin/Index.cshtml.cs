@@ -1,10 +1,10 @@
 using claudeWebsite.Shared.Models;
-using claudeWebsite.Services;
+using claudeWebsite.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace claudeWebsite.Pages.Admin;
+namespace claudeWebsite.Web.Pages.Admin;
 
 [Authorize]
 public class IndexModel : PageModel

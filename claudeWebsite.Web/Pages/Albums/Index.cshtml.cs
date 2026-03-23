@@ -1,8 +1,8 @@
 using claudeWebsite.Shared.Models;
-using claudeWebsite.Services;
+using claudeWebsite.Web.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace claudeWebsite.Pages.Albums;
+namespace claudeWebsite.Web.Pages.Albums;
 
 public class IndexModel : PageModel
 {

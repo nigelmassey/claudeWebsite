@@ -1,7 +1,7 @@
 using System.Net.Http.Headers;
 using claudeWebsite.Shared.Models;
 
-namespace claudeWebsite.Services;
+namespace claudeWebsite.Web.Services;
 
 public class GalleryApiClient
 {
