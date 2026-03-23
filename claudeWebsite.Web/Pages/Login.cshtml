@@ -8,105 +8,93 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login – Photo Gallery</title>
+    <title>Login – Admin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
-    <script type="importmap">
-    {
-        "imports": {
-            "@@material/web/": "https://esm.run/@@material/web@@2.1.0/"
-        }
-    }
-    </script>
-    <script type="module">
-        import '@@material/web/textfield/outlined-text-field.js';
-        import '@@material/web/button/filled-button.js';
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,400;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
     <style>
         *, *::before, *::after { box-sizing: border-box; }
-
-        :root {
-            --md-sys-color-primary:              #7B5800;
-            --md-sys-color-on-primary:           #FFFFFF;
-            --md-sys-color-primary-container:    #FFDF9F;
-            --md-sys-color-error:                #BA1A1A;
-            --md-sys-color-error-container:      #FFDAD6;
-            --md-sys-color-background:           #FFF8F2;
-            --md-sys-color-on-background:        #1F1B16;
-            --md-sys-color-surface-container-low:#FCF2E7;
-            --md-sys-color-outline-variant:      #D3C4B0;
-            --md-sys-color-outline:              #817566;
-            --md-sys-color-on-surface:           #1F1B16;
-            --md-sys-color-on-surface-variant:   #4F4539;
-            --md-sys-shape-corner-extra-small:   4px;
-            --md-sys-shape-corner-small:         8px;
-            --md-sys-shape-corner-medium:        12px;
-            --md-sys-shape-corner-full:          9999px;
-        }
-
         body {
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            font-family: 'Roboto', system-ui, sans-serif;
-            background: var(--md-sys-color-background);
-            color: var(--md-sys-color-on-background);
+            font-family: 'DM Sans', system-ui, sans-serif;
+            background: #0c0b09;
+            color: #f0ebe3;
             -webkit-font-smoothing: antialiased;
         }
-
         .login-card {
             display: flex;
             flex-direction: column;
-            gap: 1.25rem;
-            background: var(--md-sys-color-surface-container-low);
-            border: 1px solid var(--md-sys-color-outline-variant);
+            gap: 1rem;
+            background: #141210;
+            border: 1px solid #2a2620;
             padding: 2.5rem 2.25rem;
-            border-radius: var(--md-sys-shape-corner-medium);
+            border-radius: 10px;
             min-width: 300px;
             width: 100%;
-            max-width: 360px;
+            max-width: 340px;
         }
-
         .login-brand {
-            font-family: 'Roboto', system-ui, sans-serif;
-            font-size: 1.5rem;
+            font-family: 'Roboto', Georgia, serif;
+            font-size: 1.8rem;
             font-weight: 400;
-            color: var(--md-sys-color-on-surface);
-            margin: 0 0 0.5rem;
-            letter-spacing: 0;
+            color: #f0ebe3;
+            margin: 0 0 0.75rem;
+            letter-spacing: 0.01em;
         }
-
+        input[type=password] {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            font-size: 0.9375rem;
+            padding: 0.625rem 0.875rem;
+            border-radius: 4px;
+            border: 1px solid #3a352e;
+            background: #1c1a17;
+            color: #f0ebe3;
+            width: 100%;
+            outline: none;
+            transition: border-color 180ms ease;
+        }
+        input[type=password]:focus { border-color: #5091a7; }
+        input[type=password]::placeholder { color: #464956; }
+        button {
+            font-family: 'DM Sans', system-ui, sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            padding: 0.65rem 1.5rem;
+            background: #67b2c4;
+            color: #1a1208;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 180ms ease, transform 180ms ease;
+        }
+        button:hover { background: #d4b47c; transform: translateY(-1px); }
+        button:active { transform: translateY(0); }
         .error {
-            font-size: 0.85rem;
-            color: var(--md-sys-color-error);
+            font-size: 0.82rem;
+            color: #d97070;
             padding: 0.5rem 0.75rem;
-            background: var(--md-sys-color-error-container);
-            border: 1px solid color-mix(in srgb, var(--md-sys-color-error) 30%, transparent);
-            border-radius: var(--md-sys-shape-corner-extra-small);
+            background: rgba(217,112,112,0.07);
+            border: 1px solid rgba(217,112,112,0.18);
+            border-radius: 3px;
             margin: 0;
         }
-
-        md-outlined-text-field { width: 100%; }
-        md-filled-button { width: 100%; }
     </style>
 </head>
 <body>
     <form class="login-card" method="post">
-        <h1 class="login-brand">Photo Gallery</h1>
+        <h1 class="login-brand">Admin Portal</h1>
         @if (!string.IsNullOrEmpty(Model.ErrorMessage))
         {
             <p class="error">@Model.ErrorMessage</p>
         }
-        <md-outlined-text-field
-            type="password"
-            name="Password"
-            label="Password"
-            autofocus>
-        </md-outlined-text-field>
-        <md-filled-button type="submit">Sign in</md-filled-button>
+        <input type="password" name="Password" placeholder="Password" autofocus />
+        <button type="submit">Sign in</button>
     </form>
 </body>
 </html>
