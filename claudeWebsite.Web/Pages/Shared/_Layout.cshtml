@@ -8,16 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/gallery.css" asp-append-version="true" />
-    <script type="importmap">
-    {
-        "imports": {
-            "@@material/web/": "https://esm.run/@@material/web@@2.1.0/"
-        }
-    }
-    </script>
-    <script type="module">
-        import '@@material/web/button/text-button.js';
-    </script>
 </head>
 <body>
     <header class="site-header">
@@ -29,7 +19,7 @@
             {
                 <a asp-page="/Admin/Index">Admin</a>
                 <form method="post" action="/logout" style="display:inline">
-                    <md-text-button type="submit">Logout</md-text-button>
+                    <button type="submit" class="btn-nav">Logout</button>
                 </form>
             }
             else
